@@ -1,0 +1,20 @@
+#logo {
+    width: 75vh;
+}
+
+#word1, #word2, #word3, #word4, #word5, #word6 {
+    display: block;
+    position: relative;
+    word-spacing: 0.6vh;
+}
+
+button {
+    background-color: white;
+    border: 0.15vh solid black;
+    border-radius: 1vh;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3vh;
+    height: 7vh;
+    text-transform:uppercase;
+    width: 7vh;
+}
