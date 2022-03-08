@@ -9,7 +9,7 @@ const genshinWords = [
     "childe",
     "copium",
     "dendro",
-    "dococo",
+    "dodoco",
     "dvalin",
     "endora",
     "fischl",
@@ -58,5 +58,7 @@ const genshinWords = [
     "makoto",
     "jueyun",
     "domain",
+    "primos",
+    "attack",
 
 ]

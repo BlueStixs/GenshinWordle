@@ -3,7 +3,7 @@
 <head>
     <link rel="icon" href="images/icons/icon.jpg">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -13,6 +13,13 @@
     <title>Wordle ft. Genshin Words</title>
 
 <body onload="createWordle()">
+    <div id="endScreen">
+        <center>
+        <h1 id="winOrLose"></h1>
+        <p id="theWord"></p>
+        <input type="button" id="retryBtn" onclick="homePage()" value="Play Again">
+        </center>
+    </div>
     <div id="wordle">
         <center>
             <img id ="logo" src="images/icons/wordleLogo.gif">

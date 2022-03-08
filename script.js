@@ -5,6 +5,10 @@ var currIndex = -1;
 
 document.addEventListener("keydown", getKeyInput);
 
+function homePage() {
+    document.location.reload();
+}
+
 function createWordle(){
     wordleWord = getRandomWord();
     console.log(wordleWord);
@@ -34,14 +38,14 @@ function getKeyInput(e){
         // 13 is enter and 8 is backspace
         if (keyCode == 13){
             var currWord = wordleList[wordCount].join("");
-            console.log(currWord);
-            if (currIndex >= 5 && checkWord(currWord) && wordCount <= 6){
+            // console.log(currWord);
+            if (currIndex >= 5 && checkWord(currWord) && wordCount < 6){
                 //console.log(currWord)
                 // enters word and checks it
                 currIndex = -1;
                 wordCount++;
                 console.log(wordCount);
-            }
+            } 
         } else if (keyCode == 8){
             if (wordCount < 6){
                 if (currIndex > 0 && currIndex < 6){
@@ -63,6 +67,15 @@ function getKeyInput(e){
             } 
         }
         print(wordleList);
+
+        // LOSE
+        if (wordCount == 6){
+            if (wordleList[wordCount-1].join("") == wordleWord){
+                endGame(true);
+            } else {
+                endGame(false);
+            } 
+        }
     } else {
         // console.log("OMEGALUL");
     }
@@ -87,10 +100,12 @@ function print(theList){
 }
 
 function checkWord(word){
-    console.log('here');
     // console.log(genshinWords.includes(word.toLowerCase()));
-    changeWordColor(word);
     if (genshinWords.includes(word.toLowerCase())){
+        changeWordColor(word);
+        if (word == wordleWord){
+            endGame(true);            
+        }
         return true;
     } else {
         return false;
@@ -100,8 +115,11 @@ function checkWord(word){
 function changeButtonColor(btnNum, color){
     document.getElementsByTagName("button")[btnNum].style.backgroundColor = color;
     document.getElementsByTagName("button")[btnNum].style.color = "white";
+    scaleUp(btnNum);
 }
+
 function changeWordColor(word){
+    console.log("here");
     var lettersUsed = [0, 0, 0, 0, 0, 0];
     for(var i = 0; i < word.length; i++){
         var currChar = word.substring(i,i+1);
@@ -115,8 +133,8 @@ function changeWordColor(word){
                 changeButtonColor(btnNum, "#69A964")
             } else {
                 var wordleWordCurrChar = wordleWord.indexOf(currChar);
-                console.log(lettersUsed[wordleWordCurrChar]);
-                console.log(wordleWord.split(currChar).length-1);
+                // console.log(lettersUsed[wordleWordCurrChar]);
+                // console.log(wordleWord.split(currChar).length-1);
                 if (lettersUsed[wordleWordCurrChar] < wordleWord.split(currChar).length-1){
                     lettersUsed[wordleWordCurrChar]+=1;
                     changeButtonColor(btnNum, "#C8B357")
@@ -126,17 +144,38 @@ function changeWordColor(word){
             }
         } else {
             changeButtonColor(btnNum, "#787C7E")
-        }
-        
-        lettersUsed.push(currChar);
-        console.log(lettersUsed);
+        }        
+        // console.log(lettersUsed);
     }
 }
-//yoink my code now https://tinyurl.com/mua3uphf
+
 function lettersOnly(input){
     if ((input > 64 && input < 91) || (input > 96 && input < 123) || input == 8 || input == 13){
         return true;
     } else {
         return false;
     }
+}
+
+function endGame(bool){
+    setTimeout(function(){
+        wordCount = 6;
+        currIndex = 6;
+        if (bool){
+            document.getElementById("winOrLose").innerHTML = "YOU WON!";
+        } else {
+            document.getElementById("winOrLose").innerHTML = "YOU LOST!";
+        }
+        document.getElementById("theWord").innerHTML = "The word was: " + wordleWord.toUpperCase();
+        
+        document.getElementById("endScreen").style.display = "block";        
+        setTimeout(function(){
+            document.getElementById("endScreen").style.opacity = "1";
+            document.getElementById("wordle").style.opacity = "0.5";
+        }, 200);
+    }, 800);
+}
+
+function scaleUp(btnNum){
+    document.getElementsByTagName("button")[btnNum].style.transform = "scale(1.05)";
 }
