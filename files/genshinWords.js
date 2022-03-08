@@ -34,6 +34,8 @@ const genshinWords = [
     "sumeru",
     "talent",
     "teppei",
+    "teucer",
+    "timmie",
     "teyvat",
     "vision",
     "welkin",
