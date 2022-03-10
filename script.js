@@ -147,8 +147,8 @@ function changeWordColor(word){
 
         var wordleWordCurrChar = wordleWord.indexOf(currChar);
         
-            console.log(lettersUsed[wordleWordCurrChar]);
-            console.log(wordleWord.split(currChar).length-1);
+            // console.log(lettersUsed[wordleWordCurrChar]);
+            // console.log(wordleWord.split(currChar).length-1);
             if (lettersUsed[wordleWordCurrChar] < wordleWord.split(currChar).length-1){
                 lettersUsed[wordleWordCurrChar]+=1;
                 changeButtonColor(btnNum, "#C8B357")
