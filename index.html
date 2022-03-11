@@ -1,13 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <head>
     <link rel="icon" href="images/icons/icon.jpg">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
     <script src="files/genshinWords.js"></script>
     <script src="script.js"></script>
     <title>Wordle ft. Genshin Words</title>
@@ -15,23 +14,27 @@
 <body onload="createWordle()">
     <div id="endScreen">
         <center>
-        <h1 id="winOrLose"></h1>
-        <p id="theWord"></p>
-        <input type="button" id="retryBtn" onclick="homePage()" value="Play Again">
+            <h1 id="winOrLose"></h1>
+            <p id="theWord"></p>
+            <input type="button" id="retryBtn" onclick="homePage()" value="Play Again">
         </center>
     </div>
-    <div id="wordle">
-        <center>
-            <img id ="logo" src="images/icons/wordleLogo.gif">
+    <center>
+        <img id="logo" src="images/icons/wordleLogo.gif">
         
-            <p id ="word1"></p>
-            <p id ="word2"></p>
-            <p id ="word3"></p>
-            <p id ="word4"></p>
-            <p id ="word5"></p>
-            <p id ="word6"></p>
-        </center>
-    </div>
+        <div id="wordle">
+            <p id="word1"></p>
+            <p id="word2"></p>
+            <p id="word3"></p>
+            <p id="word4"></p>
+            <p id="word5"></p>
+            <p id="word6"></p>
+        </div>
+
+        <div id="key">
+            <p id="keyboard"></p>
+        </div>
+    </center>
 </body>
 
 </html>

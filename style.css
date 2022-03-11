@@ -6,13 +6,18 @@
 }
 
 #wordle {
-    transition: 1s all;
+    left: 25%;
+    right: 25%;
+    position: fixed;
+    text-align: center;
+    z-index: 0;
 }
 
 #word1, #word2, #word3, #word4, #word5, #word6 {
     display: block;
+    margin: 1vh; 
     position: relative;
-    word-spacing: 0.6vh;
+    word-spacing: 1vh;
 }
 
 button {
@@ -22,8 +27,9 @@ button {
     font-size: 4.5vh;
     height: 6.5vh;
     width: 6.5vh;
-    text-transform:uppercase;
-    transition: 0.1s transform;
+    position: relative;
+    text-transform: uppercase;
+    transition: 0.01s transform;
 }
 
 #retryBtn {
@@ -36,6 +42,7 @@ button {
 }
 #retryBtn:hover {
     background-color: rgb(207, 207, 207);
+    cursor: pointer;
 }
 
 #endScreen {
@@ -56,11 +63,31 @@ button {
     z-index: 2147483647;
 }
 
-
 #endScreen h1 {
     font-size: 5vh;
 }
 
 #endScreen p {
     font-size: 2vh;
+}
+
+#key {
+    font-size: 0;
+    width :0;
+}
+
+#keyboard {
+    bottom: 5%;
+    left: 25%;
+    right: 25%;
+    position: fixed;
+    text-align: center;
+    z-index: 0;
+}
+
+#keyboard button:hover {
+    cursor: pointer;
+}
+#enter, #back {
+    width: 7vh;
 }

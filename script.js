@@ -22,6 +22,7 @@ function createWordle(){
     ]
 
     printWords(wordleList);
+    makeKeyboard();
     //console.log(document.all)
 }
 
@@ -29,17 +30,34 @@ function getRandomWord(){
     word = Math.floor(Math.random() * (genshinWords.length - 1));
     return genshinWords[word];
 }
-function getKeyInput(e){
+
+//letter is from if you use keyboard
+function getKeyInput(e, letter){
     var keyInput = e.key;
     var keyCode = e.keyCode;
+    
+    //using onscreen keyboard
+    if (letter != null){
+        if (letter == "enter"){
+            keyInput = "Enter";
+            keyCode = 13;
+        } else if (letter == "back"){
+            keyInput = "Backspace";
+            keyCode = 8;
+        }
+        else {
+            keyInput = letter.id;
+            keyCode = (letter.id).toUpperCase().charCodeAt(0);
+        }
+    }
+    
     if (lettersOnly(keyCode) && wordCount < 6){
         // console.log("words: " + wordCount)
-        // console.log(checkWord(wordleList[wordCount][currIndex]))
         // 13 is enter and 8 is backspace
         if (keyCode == 13){
             var currWord = wordleList[wordCount].join("");
             // console.log(currWord);
-            if (currIndex >= 5 && checkWord(currWord) && wordCount < 6){
+            if (currIndex >= 5 && checkWord(currWord.toLowerCase()) && wordCount < 6){
                 //console.log(currWord)
                 // enters word and checks it
                 currIndex = -1;
@@ -85,8 +103,8 @@ function printWords(theList){
     if (wordCount < 6){
         for (var i = 0; i < 6; i++){
             var word = "word" + (i+1);
-            document.getElementById(word).innerHTML = "<button>" +  theList[i][0] + "</button>  " + "<button>" + theList[i][1] + "</button> " + "<button>" + theList[i][2] 
-                                    + "</button> " + "<button>" + theList[i][3] + "</button> " + "<button>" + theList[i][4] + "</button> " + "<button>" + theList[i][5] + "</button>";
+            document.getElementById(word).innerHTML = "<button id='" + i + "-0" + "'>" +  theList[i][0] + "</button>  " + "<button id='" + i + "-1" + "'>" + theList[i][1] + "</button> " + "<button id='" + i + "-2" + "'>" + theList[i][2] 
+                                    + "</button> " + "<button id='" + i + "-3" + "'>" + theList[i][3] + "</button> " + "<button id='" + i + "-4" + "'>" + theList[i][4] + "</button> " + "<button id='" + i + "-5" + "'>" + theList[i][5] + "</button>";
         }
     }
 }
@@ -94,8 +112,8 @@ function printWords(theList){
 function print(theList){
     if (wordCount < 6){
             var word = "word" + (wordCount+1);
-            document.getElementById(word).innerHTML = "<button>" +  theList[wordCount][0] + "</button>  " + "<button>" + theList[wordCount][1] + "</button> " + "<button>" + theList[wordCount][2] 
-                                    + "</button> " + "<button>" + theList[wordCount][3] + "</button> " + "<button>" + theList[wordCount][4] + "</button> " + "<button>" + theList[wordCount][5] + "</button>";
+            document.getElementById(word).innerHTML = "<button id='" + wordCount + "-0" + "'>" +  theList[wordCount][0] + "</button>  " + "<button id='" + wordCount + "-1" + "'>" + theList[wordCount][1] + "</button> " + "<button id='" + wordCount + "-2" + "'>" + theList[wordCount][2] 
+                                    + "</button> " + "<button id='" + wordCount + "-3" + "'>" + theList[wordCount][3] + "</button> " + "<button id='" + wordCount + "-4" + "'>" + theList[wordCount][4] + "</button> " + "<button id='" + wordCount + "-5" + "'>" + theList[wordCount][5] + "</button>";
     }
 }
 
@@ -112,10 +130,21 @@ function checkWord(word){
     }
 }
 
-function changeButtonColor(btnNum, color){
-    document.getElementsByTagName("button")[btnNum].style.backgroundColor = color;
-    document.getElementsByTagName("button")[btnNum].style.color = "white";
-    scaleUp(btnNum);
+function changeButtonColor(btnId, color){
+    document.getElementById(wordCount + "-" + btnId).style.backgroundColor = color;
+    document.getElementById(wordCount + "-" + btnId).style.color = "white";
+    scaleUp(btnId);
+}
+
+function changeKeyboardColor(btnId, color){
+    var currColor = document.getElementById(btnId).style.backgroundColor;
+    if (currColor != "rgb(105, 169, 100)" || currColor == "rgb(120, 124, 126)"){
+        document.getElementById(btnId).style.backgroundColor = color;
+        document.getElementById(btnId).style.color = "white";        
+    } else if (color == "rgb(105, 169, 100)"){
+            document.getElementById(btnId).style.backgroundColor = color;
+            document.getElementById(btnId).style.color = "white";        
+    }
 }
 
 function changeWordColor(word){
@@ -125,19 +154,22 @@ function changeWordColor(word){
 
     for(var i = 0; i < word.length; i++){
         var currChar = word.substring(i,i+1);
-        var btnNum = (6*(wordCount+1))-(6-i);
+        var btnNum = i;
 
         if (wordleWord.includes(currChar)){
+            //green
             if (currChar == wordleWord.substring(i,i+1)){
                 lettersUsed[i]+=1;
-                changeButtonColor(btnNum, "#69A964")
+                changeButtonColor(btnNum, "rgb(105, 169, 100)")
+                changeKeyboardColor(currChar, "rgb(105, 169, 100)")
             } else {
                 // for loop checks green first. then we go see yellow
                 uncertain.push(currChar);
                 uncertainBtn.push(btnNum);
             }
-        } else {
-            changeButtonColor(btnNum, "#787C7E")
+        } else {    //gray
+            changeButtonColor(btnNum, "rgb(120, 124, 126)")
+            changeKeyboardColor(currChar, "rgb(120, 124, 126)")        
         }        
         // console.log(lettersUsed);
     }
@@ -149,11 +181,15 @@ function changeWordColor(word){
         
             // console.log(lettersUsed[wordleWordCurrChar]);
             // console.log(wordleWord.split(currChar).length-1);
+
+            //yellow
             if (lettersUsed[wordleWordCurrChar] < wordleWord.split(currChar).length-1){
                 lettersUsed[wordleWordCurrChar]+=1;
-                changeButtonColor(btnNum, "#C8B357")
-            } else {
-                changeButtonColor(btnNum, "#787C7E")
+                changeButtonColor(btnNum, "rgb(200, 179, 87)")
+                changeKeyboardColor(currChar, "rgb(200, 179, 87)") 
+            } else {    //gray
+                changeButtonColor(btnNum, "rgb(120, 124, 126)")
+                changeKeyboardColor(currChar, "rgb(120, 124, 126)") 
             }
     }
 }
@@ -185,6 +221,26 @@ function endGame(bool){
     }, 800);
 }
 
-function scaleUp(btnNum){
-    document.getElementsByTagName("button")[btnNum].style.transform = "scale(1.05)";
+function makeKeyboard(){
+    const keyboard = "qwertyuiopasdfghjklzxcvbnm"
+    for (var letter of keyboard){
+        if (letter=="z"){
+            enter = "enter";
+            document.getElementById("keyboard").innerHTML += "<button id='enter' onclick='getKeyInput(e," + enter + ")'>↩</button>";            
+        }
+        document.getElementById("keyboard").innerHTML += "<button id='" + letter + "' onclick='getKeyInput(e," + letter + ")'>" + letter + "</button>";
+
+        if (letter=="m"){
+            back = "back";
+            document.getElementById("keyboard").innerHTML += "<button id='back' onclick='getKeyInput(e," + back + ")'>↩</button>";            
+        }
+
+        if (letter =="p" || letter=="l"){
+            document.getElementById("keyboard").innerHTML+="<br>";
+        }
+    }
+
+}
+function scaleUp(btnId){
+    document.getElementById(wordCount + "-" + btnId).style.transform = "scale(1.1)";
 }
