@@ -101,6 +101,7 @@ button {
 #howToPlay {
     bottom: 1vh;
     font-family: 'Montserrat', sans-serif;
+    font-size: 2vh;
     left: 25%;
     right: 25%;
     position: fixed;
