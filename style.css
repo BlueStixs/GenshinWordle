@@ -1,6 +1,7 @@
-*{
+* {
     font-family: 'Montserrat', sans-serif;
 }
+
 #logo {
     width: 75vh;
 }
@@ -15,7 +16,7 @@
 
 #word1, #word2, #word3, #word4, #word5, #word6 {
     display: block;
-    margin: 1vh; 
+    margin: 1vh;
     position: relative;
     word-spacing: 1vh;
 }
@@ -40,6 +41,7 @@ button {
     transition: 1s all;
     width: 15vh;
 }
+
 #retryBtn:hover {
     background-color: rgb(207, 207, 207);
     cursor: pointer;
@@ -49,13 +51,15 @@ button {
     color: black;
     font-family: 'Montserrat', sans-serif;
     background-color: white;
-    box-shadow: 0 0 2.5vh rgba(0, 0, 0, 0.5);;
+    box-shadow: 0 0 2.5vh rgba(0, 0, 0, 0.5);
+    ;
     display: none;
     height: 30vh;
     width: 45vh;
     left: 50%;
     opacity: 0;
     position: absolute;
+    padding: 2vh;
     top: 41%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -73,11 +77,12 @@ button {
 
 #key {
     font-size: 0;
-    width :0;
+    width: 0;
 }
 
 #keyboard {
     bottom: 5%;
+    color: black;
     left: 25%;
     right: 25%;
     position: fixed;
@@ -88,6 +93,22 @@ button {
 #keyboard button:hover {
     cursor: pointer;
 }
+
 #enter, #back {
     width: 7vh;
+}
+
+#howToPlay {
+    bottom: 1vh;
+    font-family: 'Montserrat', sans-serif;
+    left: 25%;
+    right: 25%;
+    position: fixed;
+    text-align: center;
+    z-index: 0;
+    text-decoration: underline;
+}
+
+#howToPlay:hover {
+    cursor: pointer;
 }

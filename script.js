@@ -11,6 +11,7 @@ function homePage() {
 
 function createWordle(){
     wordleWord = getRandomWord();
+
     console.log(wordleWord);
     wordleList = [
         ["&nbsp", "&nbsp", "&nbsp", "&nbsp", "&nbsp", "&nbsp"],
@@ -138,12 +139,21 @@ function changeButtonColor(btnId, color){
 
 function changeKeyboardColor(btnId, color){
     var currColor = document.getElementById(btnId).style.backgroundColor;
-    if (currColor != "rgb(105, 169, 100)" || currColor == "rgb(120, 124, 126)"){
+    console.log(currColor)
+    //green
+    if (color == "rgb(105, 169, 100)"){
         document.getElementById(btnId).style.backgroundColor = color;
-        document.getElementById(btnId).style.color = "white";        
-    } else if (color == "rgb(105, 169, 100)"){
+        document.getElementById(btnId).style.color = "white";
+    } else if (color == "rgb(200, 179, 87)") {
+        if (currColor != "rgb(105, 169, 100)"){
             document.getElementById(btnId).style.backgroundColor = color;
-            document.getElementById(btnId).style.color = "white";        
+            document.getElementById(btnId).style.color = "white";
+        }
+    } else {
+        if (currColor != "rgb(200, 179, 87)" && currColor != "rgb(105, 169, 100)"){
+            document.getElementById(btnId).style.backgroundColor = color;
+            document.getElementById(btnId).style.color = "white";       
+       }
     }
 }
 
@@ -213,12 +223,29 @@ function endGame(bool){
         }
         document.getElementById("theWord").innerHTML = "The word was: " + wordleWord.toUpperCase();
         
+        document.getElementById("retryBtn").value = "Play Again";
+
         document.getElementById("endScreen").style.display = "block";        
         setTimeout(function(){
             document.getElementById("endScreen").style.opacity = "1";
             document.getElementById("wordle").style.opacity = "0.5";
         }, 200);
     }, 800);
+}
+
+function howTo(){
+    setTimeout(function(){
+        document.getElementById("winOrLose").innerHTML = "HOW TO PLAY";
+        document.getElementById("theWord").innerHTML = "Type a 6 letter Genshin Impact word. Some genshin content creators and twitch memes are also included. If there is any word/person missing, I apologize ;-;";
+        
+        document.getElementById("endScreen").style.display = "block";
+        document.getElementById("retryBtn").value = "Play";
+
+        setTimeout(function(){
+            document.getElementById("endScreen").style.opacity = "1";
+            document.getElementById("wordle").style.opacity = "0.5";
+        }, 200);
+    }, 100);
 }
 
 function makeKeyboard(){
